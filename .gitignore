@@ -1,0 +1,9 @@
+
+expression/vitepress-configs/.vitepress/cache
+expression/vitepress-configs/.vitepress/dist
+
+**/node_modules
+**/dist
+*.iml
+**/.vscode
+**/.idea
