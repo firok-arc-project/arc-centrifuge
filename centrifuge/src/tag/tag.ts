@@ -2,8 +2,7 @@ import type {TagData} from './tag-data.d.ts'
 import {FolderNode} from '../fs/fs-meta-data'
 import * as fs from 'node:fs'
 import JSON5 from 'json5'
-
-export type TagMap = Record<string, TagData>
+import {DocMap} from '../doc/doc-data'
 
 function loadTagData(json: any): TagData
 {
@@ -20,6 +19,8 @@ function loadTagData(json: any): TagData
     indexingPaginationMethod: json.indexingPaginationMethod ?? 'createTimestamp',
   } as TagData
 }
+
+export type TagMap = Record<string, TagData>
 
 function findTagData(folder: FolderNode, map: TagMap): void
 {
@@ -46,7 +47,7 @@ function findTagData(folder: FolderNode, map: TagMap): void
   }
 }
 
-export function collectTagData(folder: FolderNode): TagMap
+export async function collectTagData(folder: FolderNode): Promise<TagMap>
 {
   const ret: TagMap = {}
   findTagData(folder, ret)

@@ -1,3 +1,4 @@
+import {DocMeta} from '../doc/doc-data'
 
 /**
  * 为此标签创建索引列表的方式
@@ -56,4 +57,18 @@ export declare interface TagData
    * 为此标签创建索引列表的方式
    * */
   indexingPaginationMethod?: TagIndexingPaginationMethod
+}
+
+export interface TagIndexingPage
+{
+  pageIndex: number
+  listDocMeta: DocMeta[]
+}
+
+export interface TagIndexingData
+{
+  tagId: string
+  pageSize: number
+  pageCount: number
+  listPage: TagIndexingPage[]
 }

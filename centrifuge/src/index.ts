@@ -2,7 +2,8 @@
 import * as process from 'node:process'
 import * as path from 'node:path'
 import {readFileSystem} from './fs/fs-meta.js'
-import {collectTagData} from './tag/tags.js'
+import {collectTagData} from './tag/tag.js'
+import {collectDocData, docMapToMeta} from './doc/doc.js'
 
 // 获取命令行参数
 const args: string[] = process.argv.slice(2)
@@ -17,10 +18,17 @@ const pathBaseDir = path.resolve(args[0])
 const folderBase = readFileSystem(pathBaseDir, pathBaseDir)
 
 // 处理 tag 数据文件
-const listTag = collectTagData(folderBase)
+const mapTag = await collectTagData(folderBase)
 
+// 处理 doc 数据文件
+const mapDoc = await collectDocData(folderBase)
 
 console.log('listPath', JSON.stringify(folderBase, null, 2))
-console.log('listTag', JSON.stringify(listTag, null, 2))
+console.log('listTag', JSON.stringify(mapTag, null, 2))
+console.log('listDoc', JSON.stringify(mapDoc, null, 2))
+
+const mapDocMeta = docMapToMeta(mapDoc)
+
+// 根据 tag 配置, 生成对应的索引
 
 

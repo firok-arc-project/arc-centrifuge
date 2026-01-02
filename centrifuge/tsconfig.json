@@ -7,8 +7,8 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "esnext",
-    "target": "ES6",
+    "module": "preserve",
+    "target": "es2020",
     "types": [
       "@types/node"
     ],
