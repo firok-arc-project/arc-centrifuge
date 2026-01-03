@@ -6,7 +6,10 @@ import {readMetaConfig} from './meta-config.js'
 import {TagMap} from './types/tag-data-def'
 import {toMap} from './id-entity.js'
 import {DocMetaMap} from './types/doc-meta-def'
-import {collectDocMeta} from './doc.js'
+import {collectDocMeta, getSortedDocMeta} from './doc.js'
+import {genAllTagJson} from './gen-all-tag-json.js'
+import {genTagIndexing} from './gen-tag-indexing.js'
+import {genTimelineIndexing} from './gen-timeline-indexing.js'
 
 export async function main()
 {
@@ -24,10 +27,16 @@ export async function main()
 
   const folderSource = readFileSystem(metaConfig.sourceFolder)
   const mapDocMeta: DocMetaMap = await collectDocMeta(folderSource)
+  const listSortedDocMeta = getSortedDocMeta(mapDocMeta)
 
   console.log('mapTag', mapTag)
   console.log('mapDocMeta', mapDocMeta)
-  // 根据 tag 配置, 生成对应的索引
+
+  // 开始生成并写入索引数据
+  const pathFolderTarget = metaConfig.targetFolder
+  await genAllTagJson(mapTag, pathFolderTarget)
+  await genTimelineIndexing(listSortedDocMeta, pathFolderTarget, metaConfig)
+  await genTagIndexing(mapTag, listSortedDocMeta, pathFolderTarget)
 }
 
 await main()

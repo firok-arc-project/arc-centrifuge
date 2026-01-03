@@ -6,6 +6,7 @@
       id: 'doc',
       name: '文档',
       desc: '标注所有文档',
+      indexing: true,
     },
     {
       id: 'test',

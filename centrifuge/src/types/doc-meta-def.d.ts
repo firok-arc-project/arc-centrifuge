@@ -9,6 +9,7 @@ export interface DocMeta
   subtitle?: string
   createTimestamp: number
   updateTimestamp: number
+  sortTimestamp: number
   tags: string[]
   pathRelative: string
 }

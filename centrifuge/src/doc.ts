@@ -21,6 +21,7 @@ function loadDocMeta(
     title,
     createTimestamp,
     updateTimestamp,
+    sortTimestamp,
     tags,
   } = json
 
@@ -31,8 +32,10 @@ function loadDocMeta(
 
   const dateCreate = new Date(json.createTimestamp)
   const dateUpdate = new Date(json.updateTimestamp)
+  const dateSort = new Date(json.sortTimestamp)
   createTimestamp = dateCreate.getTime()
   updateTimestamp = dateUpdate.getTime()
+  sortTimestamp = dateSort.getTime()
 
   if(!Array.isArray(tags))
     tags = []
@@ -43,6 +46,7 @@ function loadDocMeta(
     title,
     createTimestamp,
     updateTimestamp,
+    sortTimestamp,
     tags,
     pathRelative,
   } as DocMeta
@@ -78,4 +82,11 @@ export async function collectDocMeta(folder: FolderNode): Promise<DocMetaMap>
   const ret: DocMetaMap = {}
   findDocData(folder, ret)
   return ret
+}
+
+export function getSortedDocMeta(map: DocMetaMap): DocMeta[]
+{
+  return Object.values(map).sort((a, b) => {
+    return a.sortTimestamp - b.sortTimestamp
+  })
 }

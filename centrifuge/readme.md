@@ -25,14 +25,14 @@
 {target_folder}/
 ├─ all-tag.json  所有的标签数据
 │
-├─ tag-indexing-all-{tag_id}.json  指定标签的索引全部数据
-├─ tag-indexing-0-{tag_id}.json  指定标签的索引分页数据, 第 1 页
-├─ tag-indexing-1-{tag_id}.json  指定标签的索引分页数据, 第 2 页
+├─ tag-indexing-{tag_id}-all.json  指定标签的索引全部数据
+├─ tag-indexing-{tag_id}-0.json  指定标签的索引分页数据, 第 1 页
+├─ tag-indexing-{tag_id}-1.json  指定标签的索引分页数据, 第 2 页
 ├─ ...
 │
-├─ timeline-indexing-all-{tag_id}.json  按照时间线排序的索引全部数据
-├─ timeline-indexing-0-{tag_id}.json  按照时间线排序的索引分页数据, 第 1 页
-├─ timeline-indexing-1-{tag_id}.json  按照时间线排序的索引分页数据, 第 2 页
+├─ timeline-indexing-all.json  按照时间线排序的索引全部数据
+├─ timeline-indexing-0.json  按照时间线排序的索引分页数据, 第 1 页
+├─ timeline-indexing-1.json  按照时间线排序的索引分页数据, 第 2 页
 └─ ...
 ```
 
@@ -55,6 +55,7 @@
 * `title: string` 文档标题
 * `createTimestamp: string` 文档创建时间
 * `updateTimestamp: string` 文档更新时间
+* `sortTimestamp: string` 文档索引排序时间
 * `tags: string[]` 文档标签. 值需要是正确配置了的标签 ID 列表
 
 原始的 front-matter 数据会作为文档的简述数据输出到各个索引数据中.
@@ -70,7 +71,4 @@
 * `indexing: boolean` 是否为包含此标签的博文创建索引列表
 * `indexingPagination: boolean` 为此标签创建索引列表时是否需要分页
 * `indexingPaginationSize: int` 为此标签创建索引列表时每页的博文数量
-* `indexingPaginationMethod: string` 为此标签创建索引列表的方式
-  * `"createTimestamp"` (默认方式) 基于创建时间索引
-  * `"updateTimestamp"` 基于更新时间索引
 

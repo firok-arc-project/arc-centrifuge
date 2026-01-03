@@ -5,5 +5,7 @@ export declare interface MetaConfig
 {
   sourceFolder: string
   targetFolder: string
-  tags: TagData[]
+  tags: TagData[],
+  timelinePagination?: boolean
+  timelinePaginationSize?: number
 }

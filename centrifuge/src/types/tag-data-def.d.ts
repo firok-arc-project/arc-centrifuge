@@ -1,19 +1,6 @@
 import {IdEntity, IdMap} from './id-entity-def'
 
 /**
- * 为此标签创建索引列表的方式
- * */
-export declare type TagIndexingPaginationMethod =
-/**
- * (默认方式) 基于创建时间索引
- * */
-  'createTimestamp' |
-  /**
-   * 基于更新时间索引
-   * */
-  'updateTimestamp'
-
-/**
  * 标签数据
  * */
 export declare interface TagData extends IdEntity
@@ -52,11 +39,6 @@ export declare interface TagData extends IdEntity
    * 为此标签创建索引列表时每页包含多少条信息
    * */
   indexingPaginationSize?: number
-
-  /**
-   * 为此标签创建索引列表的方式
-   * */
-  indexingPaginationMethod?: TagIndexingPaginationMethod
 }
 
 export declare type TagMap = IdMap<TagData>

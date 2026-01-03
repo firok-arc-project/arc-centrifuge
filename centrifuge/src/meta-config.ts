@@ -15,6 +15,8 @@ export async function readMetaConfig(pathConfig: string): Promise<MetaConfig>
     sourceFolder,
     targetFolder,
     tags,
+    timelinePagination,
+    timelinePaginationSize,
   } = jsonMetaConfig
 
   // 把 sourceFolder 和 targetFolder 处理成绝对路径
@@ -28,6 +30,9 @@ export async function readMetaConfig(pathConfig: string): Promise<MetaConfig>
   if(!Array.isArray(tags))
     tags = []
 
+  timelinePagination = timelinePagination ?? true
+  timelinePaginationSize = timelinePaginationSize ?? 10
+
   const setTagId = new Set<string>()
   for(const tag of tags)
   {
@@ -40,7 +45,6 @@ export async function readMetaConfig(pathConfig: string): Promise<MetaConfig>
       indexing,
       indexingPagination,
       indexingPaginationSize,
-      indexingPaginationMethod,
     } = tag
 
     if('string' !== typeof id)
@@ -60,12 +64,13 @@ export async function readMetaConfig(pathConfig: string): Promise<MetaConfig>
     tag.indexing = indexing ?? false
     tag.indexingPagination = indexingPagination ?? true
     tag.indexingPaginationSize = indexingPaginationSize ?? 10
-    tag.indexingPaginationMethod = indexingPaginationMethod ?? 'createTimestamp'
   }
 
   return {
     sourceFolder,
     targetFolder,
     tags,
+    timelinePagination,
+    timelinePaginationSize,
   } as MetaConfig
 }
