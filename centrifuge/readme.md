@@ -4,11 +4,45 @@
 
 设计初衷是制作一个脱离特定客户端环境且 markdown-first 的博文处理工具.
 
+使用时需要指定一个 JSON5 数据文件, 这个文件包含如下字段:
+
+```json5
+{
+  "source_folder": "./input", // 一个相对路径, 指定从哪里读取文档数据
+  "target_folder": "./output", // 一个相对路径, 指定将各个索引数据写入到哪里
+  "tags": [
+    {
+      // 标签数据
+    },
+    // ...
+  ], // 标签列表
+}
+```
+
+根据文档数据, 将生成如下结构:
+
+```text
+{target_folder}/
+├─ all-tag.json  所有的标签数据
+│
+├─ tag-indexing-all-{tag_id}.json  指定标签的索引全部数据
+├─ tag-indexing-0-{tag_id}.json  指定标签的索引分页数据, 第 1 页
+├─ tag-indexing-1-{tag_id}.json  指定标签的索引分页数据, 第 2 页
+├─ ...
+│
+├─ timeline-indexing-all-{tag_id}.json  按照时间线排序的索引全部数据
+├─ timeline-indexing-0-{tag_id}.json  按照时间线排序的索引分页数据, 第 1 页
+├─ timeline-indexing-1-{tag_id}.json  按照时间线排序的索引分页数据, 第 2 页
+└─ ...
+```
+
+生成的内容不会包含各个文档的原始数据.
+
 ## 文档配置
 
 此工具会递归加载指定目录树内所有文件, 按照不同格式将对其进行不同处理.
 
-### `.md` 文件
+### 文档 front-matter 数据
 
 每个 `.md` 文件对应一篇可渲染的博文.
 
@@ -19,16 +53,15 @@
 
 * `id: string` 文档唯一 ID. 这会用于生成唯一 URL
 * `title: string` 文档标题
-* `subtitle: string` 文档副标题
 * `createTimestamp: string` 文档创建时间
 * `updateTimestamp: string` 文档更新时间
 * `tags: string[]` 文档标签. 值需要是正确配置了的标签 ID 列表
 
-### `.tag.json` 和 `.tag.json5` 文件
+原始的 front-matter 数据会作为文档的简述数据输出到各个索引数据中.
 
-用于配置标签的 JSON 数据文件.
+### 标签数据
 
-包含如下字段:
+标签数据包含如下字段:
 
 * `id: string` 标签唯一 ID
 * `name: string` 标签名称

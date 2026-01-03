@@ -1,34 +1,33 @@
 
 import * as process from 'node:process'
 import * as path from 'node:path'
-import {readFileSystem} from './fs/fs-meta.js'
-import {collectTagData} from './tag/tag.js'
-import {collectDocData, docMapToMeta} from './doc/doc.js'
+import {readFileSystem} from './file-system.js'
+import {readMetaConfig} from './meta-config.js'
+import {TagMap} from './types/tag-data-def'
+import {toMap} from './id-entity.js'
+import {DocMetaMap} from './types/doc-meta-def'
+import {collectDocMeta} from './doc.js'
 
-// 获取命令行参数
-const args: string[] = process.argv.slice(2)
+export async function main()
+{
+  // 获取命令行参数
+  const args: string[] = process.argv.slice(2)
 
-if(args.length < 1)
-  throw '未指定基础目录路径'
+  if(args.length < 1)
+    throw '未指定配置文件路径'
 
-// 始终把第一个字符串当做本次识别和处理的基础目录
-const pathBaseDir = path.resolve(args[0])
+  // 始终把第一个字符串当做本次识别和处理的基础目录
+  const pathMetaConfig = path.resolve(args[0])
+  const metaConfig = await readMetaConfig(pathMetaConfig)
 
-// 递归识别这个目录下的文件
-const folderBase = readFileSystem(pathBaseDir, pathBaseDir)
+  const mapTag: TagMap = toMap(metaConfig.tags) // 处理 tag 数据
 
-// 处理 tag 数据文件
-const mapTag = await collectTagData(folderBase)
+  const folderSource = readFileSystem(metaConfig.sourceFolder)
+  const mapDocMeta: DocMetaMap = await collectDocMeta(folderSource)
 
-// 处理 doc 数据文件
-const mapDoc = await collectDocData(folderBase)
+  console.log('mapTag', mapTag)
+  console.log('mapDocMeta', mapDocMeta)
+  // 根据 tag 配置, 生成对应的索引
+}
 
-console.log('listPath', JSON.stringify(folderBase, null, 2))
-console.log('listTag', JSON.stringify(mapTag, null, 2))
-console.log('listDoc', JSON.stringify(mapDoc, null, 2))
-
-const mapDocMeta = docMapToMeta(mapDoc)
-
-// 根据 tag 配置, 生成对应的索引
-
-
+await main()

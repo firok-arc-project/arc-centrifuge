@@ -1,6 +1,7 @@
-import type {TagData, TagIndexingData, TagIndexingPage} from './tag-data'
-import {DocMap, DocMetaMap} from '../doc/doc-data'
-import {TagMap} from './tag'
+
+import {TagData, TagMap} from './types/tag-data-def'
+import {TagIndexingData, TagIndexingPage} from './types/tag-indexing-def'
+import {DocMetaMap} from './types/doc-meta-def'
 
 export function createTagIndexing(
   tag: TagData,

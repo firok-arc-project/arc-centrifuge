@@ -1,0 +1,17 @@
+{
+  sourceFolder: './',
+  targetFolder: '../example-target',
+  tags: [
+    {
+      id: 'doc',
+      name: '文档',
+      desc: '标注所有文档',
+    },
+    {
+      id: 'test',
+      name: '测试标签',
+      hidden: true,
+      indexing: false,
+    }
+  ],
+}

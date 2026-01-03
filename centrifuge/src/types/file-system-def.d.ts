@@ -23,5 +23,3 @@ export declare interface FolderNode extends FileSystemNode
   listChildrenFolder: FolderNode[]
   listChildrenFile: FileNode[]
 }
-
-export declare function readFileSystem(pathBaseDir: string): FolderNode

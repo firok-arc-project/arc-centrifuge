@@ -13,8 +13,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "test:build-first": "npx tsc && node ./dist/index.js ../example-source",
-    "test:direct": "node dist/index.js ../example-source"
+    "test:build-first": "npx tsc && node ./dist/index.js ../example-source/meta-config.json5",
+    "test:direct": "node dist/index.js ../example-source/meta-config.json5"
   },
   "devDependencies": {
     "typescript": "^5.9.3"

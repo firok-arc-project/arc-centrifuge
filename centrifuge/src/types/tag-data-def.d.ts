@@ -1,12 +1,12 @@
-import {DocMeta} from '../doc/doc-data'
+import {IdEntity, IdMap} from './id-entity-def'
 
 /**
  * 为此标签创建索引列表的方式
  * */
 export declare type TagIndexingPaginationMethod =
-  /**
-   * (默认方式) 基于创建时间索引
-   * */
+/**
+ * (默认方式) 基于创建时间索引
+ * */
   'createTimestamp' |
   /**
    * 基于更新时间索引
@@ -16,17 +16,17 @@ export declare type TagIndexingPaginationMethod =
 /**
  * 标签数据
  * */
-export declare interface TagData
+export declare interface TagData extends IdEntity
 {
-  /**
-   * 标签唯一 ID
-   * */
-  id: string
-
   /**
    * 标签名称
    * */
   name?: string
+
+  /**
+   * 标签图标
+   * */
+  icon?: string
 
   /**
    * 标签描述
@@ -59,16 +59,4 @@ export declare interface TagData
   indexingPaginationMethod?: TagIndexingPaginationMethod
 }
 
-export interface TagIndexingPage
-{
-  pageIndex: number
-  listDocMeta: DocMeta[]
-}
-
-export interface TagIndexingData
-{
-  tagId: string
-  pageSize: number
-  pageCount: number
-  listPage: TagIndexingPage[]
-}
+export declare type TagMap = IdMap<TagData>
