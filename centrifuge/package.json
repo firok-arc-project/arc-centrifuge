@@ -1,7 +1,8 @@
 {
-  "name": "centrifuge",
-  "version": "0.1.0",
+  "name": "@firok-arc-project/arc-centrifuge",
+  "version": "0.6.0",
   "description": "lib used to convert markdown content into meta JSON",
+  "private": false,
   "keywords": [
     "lib",
     "SSG"
@@ -14,7 +15,8 @@
   "scripts": {
     "build": "npx tsc",
     "test:build-first": "npx tsc && node ./dist/index.js ../example-source/meta-config.json5",
-    "test:direct": "node dist/index.js ../example-source/meta-config.json5"
+    "test:direct": "node dist/index.js ../example-source/meta-config.json5",
+    "publish": "npm publish --access public"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
@@ -23,5 +25,12 @@
     "@types/node": "^25.0.3",
     "gray-matter": "^4.0.3",
     "json5": "^2.2.3"
-  }
+  },
+  "files": [
+    "dist",
+    "src",
+    "readme.md",
+    "../license",
+    "tsconfig.json"
+  ]
 }
