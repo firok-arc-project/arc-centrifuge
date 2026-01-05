@@ -53,9 +53,10 @@
     "strictNullChecks": false,
     "moduleResolution": "node",
     "preserveConstEnums": true,
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "composite": true
   },
   "include": [
     "./src/*"
-  ],
+  ]
 }
