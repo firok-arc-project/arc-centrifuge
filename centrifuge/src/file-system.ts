@@ -17,12 +17,6 @@ export function readFileSystem(
   })
   const pathAbsolute = path.resolve(pathDir)
   const pathRelative = path.relative(pathBaseDir, pathDir)
-  console.log(
-    'pathBaseDir', pathBaseDir,
-      'pathDir', pathDir,
-      'pathAbsolute', pathAbsolute,
-      'pathRelative', pathRelative,
-    )
 
   const listFolder: FolderNode[] = []
   const listFile: FileNode[] = []

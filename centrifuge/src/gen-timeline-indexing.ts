@@ -1,6 +1,7 @@
 import {DocMeta} from './types/doc-meta-def'
 import {resolve, write} from './gen.js'
 import { MetaConfig } from './types/meta-config-def'
+import {IndexingPage} from './types/indexing-data-def'
 
 export async function genTimelineIndexing(
   listSortedDocMeta: DocMeta[],
@@ -22,6 +23,13 @@ export async function genTimelineIndexing(
     const end = Math.min(start + pageSize, listSortedDocMeta.length)
     const listDocMeta = listSortedDocMeta.slice(start, end)
     const pathFileIndexing = resolve(pathFolderTarget, `timeline-indexing-${pageIndex}.json`)
-    await write(pathFileIndexing, listDocMeta)
+    const page: IndexingPage = {
+      pageIndex,
+      pageSize,
+      pageCount,
+      recordCount: listSortedDocMeta.length,
+      listDocMeta,
+    }
+    await write(pathFileIndexing, page)
   }
 }

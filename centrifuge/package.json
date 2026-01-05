@@ -1,6 +1,6 @@
 {
   "name": "@firok-arc-project/arc-centrifuge",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "lib used to convert markdown content into meta JSON",
   "private": false,
   "keywords": [
@@ -14,7 +14,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "test:build-first": "npx tsc && node ./dist/index.js ../example-source/meta-config.json5",
+    "test:build-first": "npx tsc && node ./dist/index.js D:\\projects\\arc-material\\docs\\meta-config.json5",
     "test:direct": "node dist/index.js ../example-source/meta-config.json5",
     "publish": "npm publish --access public"
   },
