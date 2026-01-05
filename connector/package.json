@@ -1,6 +1,6 @@
 {
   "name": "@firok-arc-project/arc-connector",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "lib used to get markdown content metadata created by arc-centrifuge",
   "private": false,
   "keywords": [
@@ -13,7 +13,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx tsc",
+    "publish": "npm run build && npm publish --access public"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
