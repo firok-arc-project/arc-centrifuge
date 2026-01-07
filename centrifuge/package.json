@@ -30,7 +30,7 @@
     "dist",
     "src",
     "readme.md",
-    "../license",
+    "license",
     "tsconfig.json"
   ]
 }

@@ -23,7 +23,7 @@
     "src",
     "dist",
     "readme.md",
-    "../license",
+    "license",
     "tsconfig.json"
   ],
   "dependencies": {
