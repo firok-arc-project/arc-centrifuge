@@ -9,9 +9,24 @@ export async function genAllTagJson(
 ): Promise<void>
 {
   const pathFileTarget = resolve(pathFolderTarget, 'all-tag.json')
+  const listTagJson: object[] = []
+  for(const tag of Object.values(mapTag))
+  {
+    const tagId = tag.id
+    const tagPagination = mapTagPaginationCollection[tagId]
 
+    const tagJson: object = {
+      ...tag,
+    }
+    if(tagPagination != null)
+    {
+      tagJson['pageCount'] = tagPagination.pageCount
+      tagJson['recordCount'] = tagPagination.recordCount
+    }
 
-  let content: string = JSON.stringify(Object.values(mapTag))
+    listTagJson.push(tagJson)
+  }
 
+  let content: string = JSON.stringify(listTagJson)
   await write(pathFileTarget, content)
 }

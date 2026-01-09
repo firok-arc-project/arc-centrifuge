@@ -1,6 +1,6 @@
 {
   "name": "@firok-arc-project/arc-centrifuge",
-  "version": "0.7.0",
+  "version": "0.9.0",
   "description": "lib used to convert markdown content into meta JSON",
   "private": false,
   "keywords": [
