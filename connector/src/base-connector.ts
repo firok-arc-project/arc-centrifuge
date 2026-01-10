@@ -14,5 +14,10 @@ export abstract class BaseConnector
   abstract getTimelineIndexingPage(pageIndex: number): Promise<IndexingPage>
 
   abstract getTimelineIndexingAllData(): Promise<DocMeta[]>
+
+  /**
+   * 获取文章内容
+   * */
+  abstract getDocContent(docMeta: DocMeta): Promise<string>
 }
 

@@ -4,20 +4,28 @@ import {BaseConnector} from './base-connector'
 import {TagMap} from '../../centrifuge/src/types/tag-data-def'
 import {DocMeta} from '../../centrifuge/src/types/doc-meta-def'
 import {IndexingPage} from '../../centrifuge/src/types/indexing-data-def'
+import {FetchedDocMeta, FetchedIndexingPage} from './connector-def'
 
 export class AjaxConnector extends BaseConnector
 {
-  private readonly axios: AxiosInstance
-  constructor(private readonly baseUrl: string) {
+  private readonly axiosMeta: AxiosInstance
+  private readonly axiosDoc: AxiosInstance
+  constructor(
+    private readonly baseUrlMeta: string,
+    private readonly baseUrlDoc: string,
+  ) {
     super()
-    this.axios = axios.create({
-      baseURL: baseUrl,
+    this.axiosMeta = axios.create({
+      baseURL: baseUrlMeta,
+    })
+    this.axiosDoc = axios.create({
+      baseURL: baseUrlDoc,
     })
   }
 
   private async ajaxGet<TypeEntity>(url: string): Promise<TypeEntity>
   {
-    const result = await this.axios({
+    const result = await this.axiosMeta({
       url,
       method: 'get',
     })
@@ -28,20 +36,52 @@ export class AjaxConnector extends BaseConnector
     return this.ajaxGet('/all-tag.json')
   }
 
-  async getTagIndexingAllData(tagId: string): Promise<DocMeta[]> {
-    return this.ajaxGet(`/tag-indexing-${tagId}-all.json`)
+  private handleDate(timestamp: number): string {
+    const date = new Date(timestamp)
+    // 把日期转换成 YYYY-MM-DD 格式
+    return date.toISOString().slice(0, 10)
   }
 
-  async getTagIndexingPage(tagId: string, pageIndex: number): Promise<IndexingPage> {
-    return this.ajaxGet(`/tag-indexing-${tagId}-${pageIndex}.json`)
+  private handleDocMeta(listDocMeta: DocMeta[]): FetchedDocMeta[] {
+    return listDocMeta.map(docMeta => {
+      return {
+        ...docMeta,
+        textCreateTimestamp: this.handleDate(docMeta.createTimestamp),
+        textUpdateTimestamp: this.handleDate(docMeta.updateTimestamp),
+        textSortTimestamp: this.handleDate(docMeta.sortTimestamp),
+      }
+    })
   }
 
-  async getTimelineIndexingAllData(): Promise<DocMeta[]> {
-    return this.ajaxGet(`/timeline-indexing-all.json`)
+  private handleIndexingPage(page: IndexingPage): FetchedIndexingPage {
+    return {
+      ...page,
+      listDocMeta: this.handleDocMeta(page.listDocMeta),
+    }
   }
 
-  async getTimelineIndexingPage(pageIndex: number): Promise<IndexingPage> {
-    return this.ajaxGet(`/timeline-indexing-${pageIndex}.json`)
+  async getTagIndexingAllData(tagId: string): Promise<FetchedDocMeta[]> {
+    const list: DocMeta[] = await this.ajaxGet(`/tag-indexing-${tagId}-all.json`)
+    return this.handleDocMeta(list)
   }
 
+  async getTagIndexingPage(tagId: string, pageIndex: number): Promise<FetchedIndexingPage> {
+    const page: IndexingPage = await this.ajaxGet(`/tag-indexing-${tagId}-${pageIndex}.json`)
+    return this.handleIndexingPage(page)
+  }
+
+  async getTimelineIndexingAllData(): Promise<FetchedDocMeta[]> {
+    const list: DocMeta[] = await this.ajaxGet(`/timeline-indexing-all.json`)
+    return this.handleDocMeta(list)
+  }
+
+  async getTimelineIndexingPage(pageIndex: number): Promise<FetchedIndexingPage> {
+    const page: IndexingPage = await this.ajaxGet(`/timeline-indexing-${pageIndex}.json`)
+    return this.handleIndexingPage(page)
+  }
+
+  async getDocContent(docMeta: DocMeta): Promise<string> {
+    const path = docMeta.pathRelative
+    return await this.axiosDoc.get(path) as string
+  }
 }
