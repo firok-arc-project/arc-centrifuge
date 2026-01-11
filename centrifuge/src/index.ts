@@ -11,6 +11,7 @@ import {genAllTagJson} from './gen-all-tag-json.js'
 import {genTagIndexing} from './gen-tag-indexing.js'
 import {genTimelineIndexing} from './gen-timeline-indexing.js'
 import {IndexingPageMeta} from './types/indexing-data-def'
+import {genDocIndexing} from './gen-doc-indexing.js'
 
 export async function main()
 {
@@ -49,6 +50,7 @@ export async function main()
     mapTagPaginationCollection,
   )
   await genAllTagJson(mapTag, pathFolderTarget, mapTagPaginationCollection)
+  await genDocIndexing(listSortedDocMeta, pathFolderTarget)
 }
 
 await main()
