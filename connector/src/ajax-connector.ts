@@ -1,9 +1,9 @@
 
 import axios, {type AxiosInstance} from 'axios'
 import {BaseConnector} from './base-connector'
-import {TagMap} from '../../centrifuge/src/types/tag-data-def'
-import {DocMeta} from '../../centrifuge/src/types/doc-meta-def'
-import {IndexingPage} from '../../centrifuge/src/types/indexing-data-def'
+import {TagMap} from '@firok-arc-project/arc-centrifuge/src/types/tag-data-def'
+import {DocMeta} from '@firok-arc-project/arc-centrifuge/src/types/doc-meta-def'
+import {IndexingPage} from '@firok-arc-project/arc-centrifuge/src/types/indexing-data-def'
 import {FetchedDocMeta, FetchedIndexingPage} from './connector-def'
 
 export class AjaxConnector extends BaseConnector
@@ -78,6 +78,11 @@ export class AjaxConnector extends BaseConnector
   async getTimelineIndexingPage(pageIndex: number): Promise<FetchedIndexingPage> {
     const page: IndexingPage = await this.ajaxGet(`/timeline-indexing-${pageIndex}.json`)
     return this.handleIndexingPage(page)
+  }
+
+  async getDocIndexing(docId: string): Promise<FetchedDocMeta> {
+    const docMeta: DocMeta = await this.ajaxGet(`/doc-indexing-${docId}.json`)
+    return this.handleDocMeta([docMeta])[0]
   }
 
   async getDocContent(docMeta: DocMeta): Promise<string> {

@@ -1,7 +1,7 @@
 
-import {TagMap} from '../../centrifuge/src/types/tag-data-def'
-import {IndexingPage} from '../../centrifuge/src/types/indexing-data-def'
-import {DocMeta} from '../../centrifuge/src/types/doc-meta-def'
+import {TagMap} from '@firok-arc-project/arc-centrifuge/src/types/tag-data-def'
+import {IndexingPage} from '@firok-arc-project/arc-centrifuge/src/types/indexing-data-def'
+import {DocMeta} from '@firok-arc-project/arc-centrifuge/src/types/doc-meta-def'
 
 export abstract class BaseConnector
 {
@@ -14,6 +14,8 @@ export abstract class BaseConnector
   abstract getTimelineIndexingPage(pageIndex: number): Promise<IndexingPage>
 
   abstract getTimelineIndexingAllData(): Promise<DocMeta[]>
+
+  abstract getDocIndexing(docId: string): Promise<DocMeta>
 
   /**
    * 获取文章内容

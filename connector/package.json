@@ -1,6 +1,6 @@
 {
   "name": "@firok-arc-project/arc-connector",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "lib used to get markdown content metadata created by arc-centrifuge",
   "private": false,
   "keywords": [
@@ -27,6 +27,7 @@
     "tsconfig.json"
   ],
   "dependencies": {
+    "@firok-arc-project/arc-centrifuge": "^0.11.0",
     "axios": "^1.13.2"
   }
 }

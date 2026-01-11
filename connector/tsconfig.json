@@ -58,8 +58,5 @@
     "./src/*"
   ],
   "references": [
-    {
-      "path": "../centrifuge"
-    }
   ]
 }

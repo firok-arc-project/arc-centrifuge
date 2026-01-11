@@ -1,5 +1,5 @@
-import {DocMeta} from '../../centrifuge/src/types/doc-meta-def'
-import {IndexingPage} from '../../centrifuge/src/types/indexing-data-def'
+import {DocMeta} from '@firok-arc-project/arc-centrifuge/src/types/doc-meta-def'
+import {IndexingPage} from '@firok-arc-project/arc-centrifuge/src/types/indexing-data-def'
 
 export declare interface FetchedDocMeta extends DocMeta
 {
