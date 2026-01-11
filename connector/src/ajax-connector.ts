@@ -87,6 +87,10 @@ export class AjaxConnector extends BaseConnector
 
   async getDocContent(docMeta: DocMeta): Promise<string> {
     const path = docMeta.pathRelative
-    return await this.axiosDoc.get(path) as string
+    const result = await this.axiosDoc({
+      url: path,
+      method: 'get',
+    })
+    return result.data as string
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@firok-arc-project/arc-connector",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "lib used to get markdown content metadata created by arc-centrifuge",
   "private": false,
   "keywords": [
