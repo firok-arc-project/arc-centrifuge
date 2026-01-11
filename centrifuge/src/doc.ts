@@ -87,6 +87,6 @@ export async function collectDocMeta(folder: FolderNode): Promise<DocMetaMap>
 export function getSortedDocMeta(map: DocMetaMap): DocMeta[]
 {
   return Object.values(map).sort((a, b) => {
-    return a.sortTimestamp - b.sortTimestamp
+    return b.sortTimestamp - a.sortTimestamp
   })
 }
